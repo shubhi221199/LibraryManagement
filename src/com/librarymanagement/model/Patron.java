@@ -1,9 +1,11 @@
 package com.librarymanagement.model;
 
+import com.librarymanagement.observer.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Patron extends Person {
+public class Patron extends Person implements Observer {
 
     private String patronId;
     private List<Loan> currentLoans;
@@ -16,7 +18,7 @@ public class Patron extends Person {
         this.borrowingHistory = new ArrayList<>();
     }
 
-    // Getter
+// Getter
 
     public String getPatronId() {
         return patronId;
@@ -30,13 +32,13 @@ public class Patron extends Person {
         return borrowingHistory;
     }
 
-    // Setter
+// Setter
 
     public void setPatronId(String patronId) {
         this.patronId = patronId;
     }
 
-    // Utility methods
+// Utility methods
 
     public void addLoan(Loan loan) {
         currentLoans.add(loan);
@@ -49,12 +51,11 @@ public class Patron extends Person {
 
     @Override
     public String toString() {
-        return "Patron{" +
-                "patronId='" + patronId + '\'' +
-                ", name='" + getName() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", phoneNumber='" + getPhoneNumber() + '\'' +
-                ", currentLoans=" + currentLoans.size() +
-                '}';
+        return "Patron{" + "patronId='" + patronId + '\'' + ", name='" + getName() + '\'' + ", email='" + getEmail() + '\'' + ", phoneNumber='" + getPhoneNumber() + '\'' + ", currentLoans=" + currentLoans.size() + '}';
+    }
+
+    @Override
+    public void update(String message) {
+        System.out.println("Notification for " + getName() + ": " + message);
     }
 }

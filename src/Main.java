@@ -11,6 +11,7 @@ import com.librarymanagement.service.PatronService;
 import com.librarymanagement.service.RecommendationService;
 import com.librarymanagement.strategy.AuthorBasedRecommendation;
 import com.librarymanagement.strategy.RecommendationStrategy;
+import com.librarymanagement.observer.BookNotifier;
 
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +20,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        BookNotifier bookNotifier = new BookNotifier();
 
         // Repositories
 
@@ -30,10 +32,11 @@ public class Main {
 
         BookService bookService = new BookService(bookRepository);
         PatronService patronService = new PatronService(patronRepository);
-        LendingService lendingService = new LendingService(bookRepository, patronRepository, loanRepository);
+        LendingService lendingService = new LendingService(bookRepository, patronRepository, loanRepository, bookNotifier);
 
         RecommendationStrategy strategy = new AuthorBasedRecommendation();
         RecommendationService recommendationService = new RecommendationService(strategy);
+
 
         boolean running = true;
 

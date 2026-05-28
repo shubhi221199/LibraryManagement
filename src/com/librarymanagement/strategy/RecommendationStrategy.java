@@ -1,0 +1,14 @@
+package com.librarymanagement.strategy;
+
+import com.librarymanagement.model.Book;
+import com.librarymanagement.model.Patron;
+
+import java.util.List;
+
+public interface RecommendationStrategy {
+
+    List<Book> recommendBooks(
+            Patron patron,
+            List<Book> allBooks
+    );
+}
