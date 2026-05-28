@@ -4,12 +4,15 @@ import com.librarymanagement.exception.BookNotFoundException;
 import com.librarymanagement.model.Book;
 import com.librarymanagement.repository.BookRepository;
 
+import java.util.logging.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookService {
 
     private BookRepository bookRepository;
+    private static final Logger logger = Logger.getLogger(BookService.class.getName());
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -28,7 +31,7 @@ public class BookService {
 
         bookRepository.save(book);
 
-        System.out.println("Book added successfully.");
+        logger.info("Book added successfully: " + book.getTitle());
     }
 
     // Remove Book
@@ -38,7 +41,7 @@ public class BookService {
         Book existingBook = bookRepository.findByIsbn(isbn);
 
         if (existingBook == null) {
-            System.out.println("Book not found.");
+            logger.warning("Book not found. ");
             return;
         }
 
